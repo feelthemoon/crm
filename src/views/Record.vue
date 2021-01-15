@@ -5,7 +5,7 @@
     </div>
 
     <form class="form">
-      <div >
+      <div>
         <label class="choose-category">Выберите категорию</label>
       </div>
 
