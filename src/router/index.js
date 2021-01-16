@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-
+import firebase from "firebase/app";
 const routes = [
   {
     path: "/",
@@ -19,46 +19,6 @@ const routes = [
     component: () => import("@/views/Login")
   },
   {
-    path: "/categories",
-    name: "Categories",
-    meta: {
-      layout: "main"
-    },
-    component: () => import("@/views/Categories")
-  },
-  {
-    path: "/history",
-    name: "History",
-    meta: {
-      layout: "main"
-    },
-    component: () => import("@/views/History")
-  },
-  {
-    path: "/planning",
-    name: "Planning",
-    meta: {
-      layout: "main"
-    },
-    component: () => import("@/views/Planning")
-  },
-  {
-    path: "/profile",
-    name: "Profile",
-    meta: {
-      layout: "main"
-    },
-    component: () => import("@/views/Profile")
-  },
-  {
-    path: "/record",
-    name: "Record",
-    meta: {
-      layout: "main"
-    },
-    component: () => import("@/views/Record")
-  },
-  {
     path: "/register",
     name: "Register",
     meta: {
@@ -67,18 +27,73 @@ const routes = [
     component: () => import("@/views/Register")
   },
   {
+    path: "/categories",
+    name: "Categories",
+    meta: {
+      layout: "main",
+      auth: true
+    },
+    component: () => import("@/views/Categories")
+  },
+  {
+    path: "/history",
+    name: "History",
+    meta: {
+      layout: "main",
+      auth: true
+    },
+    component: () => import("@/views/History")
+  },
+  {
+    path: "/planning",
+    name: "Planning",
+    meta: {
+      layout: "main",
+      auth: true
+    },
+    component: () => import("@/views/Planning")
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    meta: {
+      layout: "main",
+      auth: true
+    },
+    component: () => import("@/views/Profile")
+  },
+  {
+    path: "/record",
+    name: "Record",
+    meta: {
+      layout: "main",
+      auth: true
+    },
+    component: () => import("@/views/Record")
+  },
+
+  {
     path: "/detail_record",
     name: "DetailRecord",
     meta: {
-      layout: "main"
+      layout: "main",
+      auth: true
     },
     component: () => import("@/views/DetailRecord")
-  },
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
-
+router.beforeEach((to, from, next) => {
+  const currentUser = firebase.auth().currentUser;
+  const requireAuth = to.matched.some(record => record.meta.auth);
+  if (requireAuth && !currentUser) {
+    next("/login?message=login");
+  } else {
+    next();
+  }
+});
 export default router;

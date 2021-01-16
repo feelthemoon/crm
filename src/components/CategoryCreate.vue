@@ -34,7 +34,7 @@
                 (this.v.limit.$dirty && this.v.limit.required.$invalid)
             }"
           />
-          <label for="limit">Лимит</label>
+          <label for="limit">Лимит, ₽</label>
           <span
             class="helper-text invalid"
             v-if="

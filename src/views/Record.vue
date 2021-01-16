@@ -4,14 +4,14 @@
       <h3>Новая запись</h3>
     </div>
     <loader v-if="loading" />
-    <p v-else-if="!categories.length">
+    <p class="center" v-else-if="!categories.length">
       Категорий пока нет.
-      <router-link to="/categories">Добавьте её!</router-link>
+      <router-link to="/categories">Добавьте их!</router-link>
     </p>
     <form class="form" v-else @submit.prevent="submitHandler">
       <div class="input-field">
-        <select v-model="category.title" ref="select">
-          <option v-for="c of categories" :key="c.id">
+        <select v-model="category.id" ref="select">
+          <option v-for="c of categories" :key="c.id" v-bind:value="c.id">
             {{ c.title }}
           </option>
         </select>
@@ -55,7 +55,7 @@
               (v.amount.required.$invalid || v.amount.minValue.$invalid)
           }"
         />
-        <label for="amount">Сумма</label>
+        <label for="amount">Сумма, ₽</label>
         <span
           class="helper-text invalid"
           v-if="
