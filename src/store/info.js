@@ -8,12 +8,12 @@ export default {
       state.info = info;
     },
     clearInfo(state) {
-      state.info = {}
+      state.info = {};
     }
   },
   actions: {
     async fetchInfo({ dispatch, commit }) {
-      try{
+      try {
         const uid = await dispatch("getUid");
         const info = (
           await firebase
@@ -22,8 +22,22 @@ export default {
             .once("value")
         ).val();
         commit("setInfo", info);
-      }catch(e){
-        commit('setError', e);
+      } catch (e) {
+        commit("setError", e);
+      }
+    },
+    async updateInfo({ dispatch, commit }, infoUpdate) {
+      try {
+        const uid = await dispatch("getUid");
+        const updateData = { ...this.getters.info, ...infoUpdate };
+        await firebase
+          .database()
+          .ref(`users/${uid}/info`)
+          .update(updateData);
+        commit("setInfo", updateData);
+      } catch (e) {
+        commit("setError", e);
+        throw e;
       }
     }
   },

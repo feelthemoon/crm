@@ -50,7 +50,7 @@
               (this.v.limit.$dirty && this.v.limit.minValue.$invalid) ||
                 (this.v.limit.$dirty && this.v.limit.required.$invalid)
             "
-            >Минимальная величина</span
+            >Минимальная величина: {{v.limit.minValue.$params.min}}</span
           >
         </div>
 
