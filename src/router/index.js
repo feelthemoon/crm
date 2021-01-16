@@ -73,7 +73,7 @@ const routes = [
   },
 
   {
-    path: "/detail_record",
+    path: "/detail/:id",
     name: "DetailRecord",
     meta: {
       layout: "main",

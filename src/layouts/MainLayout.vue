@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ 'all-center': loading }">
     <Loader v-if="loading" />
     <div v-else class="app-main-layout">
       <Navbar v-on:toggle="isOpen = !isOpen" />
@@ -11,7 +11,11 @@
       </main>
 
       <div class="fixed-action-btn">
-        <router-link v-tooltip="'Создать новую запись'" class="btn-floating btn-large blue" to="/record">
+        <router-link
+          v-tooltip="'Создать новую запись'"
+          class="btn-floating btn-large blue"
+          to="/record"
+        >
           <i class="large material-icons">add</i>
         </router-link>
       </div>
@@ -52,4 +56,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.all-center{
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
